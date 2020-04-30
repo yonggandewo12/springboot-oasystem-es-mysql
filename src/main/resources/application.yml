@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: cluster-push
+  datasource:
+    url: jdbc:mysql://49.232.16.165:3306/oa?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456   #密码进行加密了，括号中的为调用EncryptConfigUtil加密后的内容，如果加密的密码不是88stIVA，需要设置cobra.encrypt.password属性
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-test-query: SELECT 1
+      connection-init-sql: SELECT 1
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      minimum-idle: 10
+  http:
+    multipart:
+      enabled: true
+      file-size-threshold: 5MB
+      max-file-size: 500MB
+      max-request-size: 200MB
+      resolve-lazily: false
+#公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
+mybatis:
+  typeAliasesPackage: cn.gson.oasys.model.entity
+  mapperLocations: classpath*:/mappers/*.xml
+
+#file
+file:
+  root:
+    path: classpath:/static/file
+img:
+  rootpath: classpath:/static/images
+attachment:
+  roopath: classpath:/static/attachment
+
+# es ip
+elasticsearch:
+  ip: 49.232.16.165
+  port: 9200
+  http:
+    connectTimeOut: 1000            # 连接超时时间
+    socketTimeOut: 30000                  # socket超时时间
+    connectionRequestTimeOut: 500            # 获取连接的超时时间
+    maxConnectNum: 100                    # 最大连接数
+    maxConnectPerRoute: 100               # 最大路由连接数
