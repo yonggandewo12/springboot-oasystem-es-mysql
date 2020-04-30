@@ -74,11 +74,3 @@ oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于sp
 ![讨论区.png](https://images.gitee.com/uploads/images/2019/0927/141251_d4992cd4_1277461.png)
 ![新建流程.png](https://images.gitee.com/uploads/images/2019/0927/141251_c7d89853_1277461.png)
 ![通讯录.png](https://images.gitee.com/uploads/images/2019/0927/141251_bcf9cbda_1277461.png)
-
-#### 有收获可以请作者喝咖啡哟
-If the project is very helpful to you, you can buy the author a cup of coffee.
-如果这个项目对您有帮助，请作者喝杯咖啡吧。☕
-
-|支付宝      |    微信|
-| :--------: | :--------:|
-| <img src="https://images.gitee.com/uploads/images/2019/0909/165504_f02dc52b_1277461.jpeg " width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0909/165444_ab4377b4_1277461.jpeg " width="300"  align=center />|
