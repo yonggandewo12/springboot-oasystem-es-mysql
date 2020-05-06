@@ -56,7 +56,7 @@ public class FileServices {
 	@Value("${file.root.path}")
 	private String rootPath;
 
-	//@PostConstruct
+	@PostConstruct
 	public void UserpanelController(){
 		try {
 			rootPath= ResourceUtils.getURL("classpath:").getPath().replace("target/classes/","static/file");
@@ -622,7 +622,7 @@ public class FileServices {
 	 * @return
 	 */
 	public File getFile(String filepath){
-		return new File(this.rootPath,filepath);
+		return new File(filepath);
 	}
 	
 	/**

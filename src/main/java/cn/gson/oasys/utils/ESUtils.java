@@ -1,8 +1,9 @@
 package cn.gson.oasys.utils;
 
 import cn.gson.oasys.constants.KeyConstant;
-import cn.gson.oasys.entity.ESDisCuss;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.ESDisCuss;
+import cn.gson.oasys.model.entity.ESResponseList;
 import cn.gson.oasys.model.entity.discuss.Discuss;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.BaseServiceImpl;
@@ -144,7 +145,8 @@ public class ESUtils {
      * @return
      * @throws Exception
      */
-    public List<Discuss> findAllAndPageByUser(Long userId, int page, int pageSize) throws Exception {
+    public ESResponseList findAllAndPageByUser(Long userId, int page, int pageSize) throws Exception {
+        ESResponseList esResponseList = new ESResponseList();
         List<Discuss> discussList = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.types(KeyConstant.DISSCUSS_TYPE);
@@ -170,29 +172,9 @@ public class ESUtils {
             discussList.add(discuss);
             log.info("......user={},discuss={}", user, discuss);
         });
-        return discussList;
-    }
-
-    /**
-     * total
-     *
-     * @return
-     * @throws Exception
-     */
-    public long findAllAndPageByUserTotal(Long userId, int pageSize) throws Exception {
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.types(KeyConstant.DISSCUSS_TYPE);
-        searchRequest.indices(KeyConstant.DISSCUSS_INDEX);
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        if (userId != null) {
-            searchSourceBuilder.query(QueryBuilders.matchPhraseQuery("discuss_user_id", userId));
-        }else{
-            searchSourceBuilder.query(QueryBuilders.matchAllQuery());
-        }
-        searchSourceBuilder.size(pageSize);
-        searchRequest.source(searchSourceBuilder);
-        SearchResponse searchResponse = restHighLevelClient.search(searchRequest);
-        return searchResponse.getHits().getTotalHits();
+        esResponseList.setDiscussList(discussList);
+        esResponseList.setTotalSize(searchResponse.getHits().getTotalHits());
+        return esResponseList;
     }
 
     /**
@@ -201,7 +183,8 @@ public class ESUtils {
      * @return
      * @throws Exception
      */
-    public List<Discuss> findDiscussesAndPageByUserAndKey(Long userId, int page, int pageSize,String baseKey) throws Exception {
+    public ESResponseList findDiscussesAndPageByUserAndKey(Long userId, int page, int pageSize,String baseKey) throws Exception {
+        ESResponseList esResponseList = new ESResponseList();
         List<Discuss> discussList = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.types(KeyConstant.DISSCUSS_TYPE);
@@ -229,7 +212,9 @@ public class ESUtils {
             discussList.add(discuss);
             log.info("......discuss={}", discuss);
         });
-        return discussList;
+        esResponseList.setDiscussList(discussList);
+        esResponseList.setTotalSize(searchResponse.getHits().getTotalHits());
+        return esResponseList;
     }
 
 

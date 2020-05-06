@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cn.gson.oasys.services.file.FileTransactionalHandlerService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ import cn.gson.oasys.services.file.FileServices;
 
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class FileController {
 	@Autowired
 	private FileServices fs;
@@ -135,8 +137,7 @@ public class FileController {
 		FilePath nowpath = fpdao.findOne(pathid);
 		// true 表示从文件使用上传
 		FileList uploadfile = (FileList) fs.savefile(file, user, nowpath, true);
-		System.out.println(uploadfile);
-		
+		//System.out.println(uploadfile);
 		model.addAttribute("pathid", pathid);
 		return "forward:/filetest";
 	}

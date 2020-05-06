@@ -1,4 +1,4 @@
-package cn.gson.oasys.entity;
+package cn.gson.oasys.model.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

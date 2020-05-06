@@ -1,4 +1,4 @@
-package cn.gson.oasys.entity;
+package cn.gson.oasys.model.entity;
 
 import cn.gson.oasys.model.entity.discuss.Discuss;
 import lombok.Data;

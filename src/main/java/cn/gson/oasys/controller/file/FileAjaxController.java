@@ -1,6 +1,7 @@
 package cn.gson.oasys.controller.file;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cn.gson.oasys.services.file.FileTransactionalHandlerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,8 +103,8 @@ public class FileAjaxController {
 		case "trash":
 			filePaths = fpdao.findByPathUserIdAndPathIstrash(userid, 1L);
 			fileLists = fldao.findByUserAndFileIstrash(user, 1L);
-			
 			model.addAttribute("paths", filePaths);
+			//model.addAttribute("files", fileLists.stream().filter(fileList -> fileList.getFpath() != null).collect(Collectors.toList()));
 			model.addAttribute("files", fileLists);
 			model.addAttribute("istrash", 1);
 			model.addAttribute("isload",1);

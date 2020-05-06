@@ -8,7 +8,8 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import cn.gson.oasys.entity.MyPage;
+import cn.gson.oasys.model.entity.ESResponseList;
+import cn.gson.oasys.model.entity.MyPage;
 import cn.gson.oasys.utils.ESUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,16 +122,18 @@ public class DiscussService {
 			if (!StringUtils.isEmpty(baseKey)) {
 				System.out.println("查找关键字不为空");
 				try {
-					total = esUtils.findDiscussesAndPageByUserAndKeyTotal(userId, 1000, baseKey);
-					discussList = esUtils.findDiscussesAndPageByUserAndKey(userId, page, 10, baseKey);
+					ESResponseList esResponseList = esUtils.findDiscussesAndPageByUserAndKey(userId, page, 10, baseKey);
+					total = esResponseList.getTotalSize();
+					discussList = esResponseList.getDiscussList();
 				} catch (Exception e) {
 					log.error(".....es search failed:{}", e);
 				}
 			}else{
 				//key为空
 				try {
-					total =esUtils.findAllAndPageByUserTotal(userId, 1000);
-					discussList = esUtils.findAllAndPageByUser(userId, page, 10);
+					ESResponseList esResponseList = esUtils.findAllAndPageByUser(userId, page, 10);
+					total = esResponseList.getTotalSize();
+					discussList = esResponseList.getDiscussList();
 				} catch (Exception e) {
 					log.error(".....es search all failed:{}", e);
 				}
@@ -142,16 +145,18 @@ public class DiscussService {
 				if (StringUtils.isEmpty(baseKey)) {
 					//key为空
 					try {
-						total =esUtils.findAllAndPageByUserTotal(user.getUserId(), 1000);
-						discussList = esUtils.findAllAndPageByUser(user.getUserId(), page, 10);
+						ESResponseList esResponseList = esUtils.findAllAndPageByUser(user.getUserId(), page, 10);
+						total = esResponseList.getTotalSize();
+						discussList = esResponseList.getDiscussList();
 					} catch (Exception e) {
 						log.error(".....es search all failed:{}", e);
 					}
 				}else{
 					//key不为空
 					try {
-						total = esUtils.findDiscussesAndPageByUserAndKeyTotal(userId, 1000, baseKey);
-						discussList = esUtils.findDiscussesAndPageByUserAndKey(userId, page, 10, baseKey);
+						ESResponseList esResponseList = esUtils.findDiscussesAndPageByUserAndKey(userId, page, 10, baseKey);
+						total = esResponseList.getTotalSize();
+						discussList = esResponseList.getDiscussList();
 					} catch (Exception e) {
 						log.error(".....es search failed:{}", e);
 					}
@@ -195,16 +200,18 @@ public class DiscussService {
 		if (!StringUtils.isEmpty(baseKey)) {
 			System.out.println("查找关键字不为空");
 			try {
-				total = esUtils.findDiscussesAndPageByUserAndKeyTotal(user.getUserId(), 1000, baseKey);
-				discussList = esUtils.findDiscussesAndPageByUserAndKey(user.getUserId(), page, 10, baseKey);
+				ESResponseList esResponseList = esUtils.findDiscussesAndPageByUserAndKey(user.getUserId(), page, 10, baseKey);
+				total = esResponseList.getTotalSize();
+				discussList = esResponseList.getDiscussList();
 			} catch (Exception e) {
 				log.error(".....es search failed:{}", e);
 			}
 		}else{
 			System.out.println("只能看自己的");
 			try {
-				total =esUtils.findAllAndPageByUserTotal(user.getUserId(), 1000);
-				discussList = esUtils.findAllAndPageByUser(user.getUserId(), page, 10);
+				ESResponseList esResponseList = esUtils.findAllAndPageByUser(user.getUserId(), page, 10);
+				total = esResponseList.getTotalSize();
+				discussList = esResponseList.getDiscussList();
 			} catch (Exception e) {
 				log.error(".....es search all failed:{}", e);
 			}
